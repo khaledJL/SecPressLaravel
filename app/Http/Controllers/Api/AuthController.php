@@ -18,7 +18,7 @@ class AuthController extends Controller
                 ]);
 
 
-              
+              //OK
                 $user=new User();
                 $user->name=$request->name;
                 $user->email=$request->email;
