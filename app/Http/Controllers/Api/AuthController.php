@@ -29,7 +29,30 @@ class AuthController extends Controller
 
                 $response = ['token'=>$token];
         return response($response,200);
-        }
+    }
+
+
+        public function registerGerant(Request $request){
+                $request->validate([
+                    'email' => 'required',
+                    'name' => 'required',
+                    'password' => 'required'
+                ]);
+
+
+            //OK
+                $user=new User();
+                $user->name=$request->name;
+                $user->email=$request->email;
+                $user->password=bcrypt($request->password);
+                $user->gerant='1';
+                $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+
+                $user->save();
+
+                $response = ['user'=>$user,'token'=>$token];
+        return response($response,200);
+    }
         
 
         public function login(Request $request){
